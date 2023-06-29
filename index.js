@@ -5,7 +5,7 @@ const path = require("path");
 require("dotenv").config();
 const port = process.env.PORT || 3000;
 app.use(cors());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("/home", (req, res) => {
   res.json({ success: true });
