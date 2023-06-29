@@ -5,8 +5,11 @@ const cors = require('cors')
 const path = require('path'
 )
 app.use(cors())
-app.use(express.static(path.join(__dirname, 'src')))
+app.use(express.static('src'))
 
+app.get('/', (req, res) => {
+  res.sendFile('index.html', {root: path.join(__dirname, 'src')})
+})
 
 app.get('/home', (req, res) => {
   res.json({success: true})
@@ -15,3 +18,5 @@ app.get('/home', (req, res) => {
 app.listen(port, () => {
   console.log('listening to port', port)
 })
+
+module.exports = app
