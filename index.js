@@ -17,9 +17,38 @@ async function server() {
     res.json({ home: false });
   });
 
-  app.listen(port, () => {
-    console.log("listening", port);
+  const uri = "https://prosettings.net/lists/valorant/";
+  tabletojson.convertUrl(uri, (tableData) => {
+    players = tableData[0];
+
+    app.get("/", (req, res) => {
+      res.json(players);
+    });
+
+    app.get("/player", (req, res) => {
+      const query = req.query;
+      const data = players.find((p) => str(p.Player) === query.name);
+      data ? res.json(data) : res.json({ failed: true });
+    });
+
+    app.get("/team", (req, res) => {
+      const query = req.query;
+      const data = players.filter((p) => str(p.Team) === query.name);
+      checked(data) ? res.json(data) : res.json({ failed: true });
+    });
+
+    app.listen(port, () => {
+      console.log(`Listening on port ${port}`);
+    });
   });
 }
 
-server()
+server();
+
+function str(data) {
+  return data.toLowerCase();
+}
+
+function checked(data) {
+  return data.length;
+}
