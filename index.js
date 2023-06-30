@@ -8,14 +8,6 @@ app.use(express.static(path.join(__dirname + "/public")));
 
 let players = [];
 
-app.get("/", (req, res) => {
-  res.json({ success: false });
-});
-
-app.get("/home", (req, res) => {
-  res.json({ home: false });
-});
-
 const uri = "https://prosettings.net/lists/valorant/";
 tabletojson.convertUrl(uri, (tableData) => {
   players = tableData[0];
