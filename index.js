@@ -2,17 +2,24 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const port = 5000;
+const tabletojson = require("tabletojson").Tabletojson;
 
-app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.static(path.join(__dirname + "/public")));
 
-app.get("/", (req, res) => {
-  res.json({ success: false });
-});
+let players = [];
 
-app.get("/home", (req, res) => {
-  res.json({ home: false });
-});
+async function server() {
+  app.get("/", (req, res) => {
+    res.json({ success: false });
+  });
 
-app.listen(port, () => {
-  console.log("listening", port);
-});
+  app.get("/home", (req, res) => {
+    res.json({ home: false });
+  });
+
+  app.listen(port, () => {
+    console.log("listening", port);
+  });
+}
+
+server()
